@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile UI Color Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hdr">
+  <h1>🎨 Color Scheme Explorer</h1>
+  <span>Mobile UI Live Preview</span>
+</header>
+<div class="layout">
+  <aside class="lp" id="lp">
+    <div class="sec" style="margin-top:0">Presets</div>
+    <div class="pr">
+      <button class="pc" onclick="applyPreset('default')">Default</button>
+      <button class="pc" onclick="applyPreset('ocean')">Ocean</button>
+      <button class="pc" onclick="applyPreset('sunset')">Sunset</button>
+      <button class="pc" onclick="applyPreset('forest')">Forest</button>
+      <button class="pc" onclick="applyPreset('midnight')">Midnight</button>
+      <button class="pc" onclick="applyPreset('rose')">Rose</button>
+      <button class="pc" onclick="applyPreset('amber')">Amber</button>
+      <button class="pc" onclick="applyPreset('mono')">Mono</button>
+    </div>
+    <div class="sec">Paste :root</div>
+    <div class="imp">
+      <textarea id="importBox" class="impt" rows="8" placeholder=":root {&#10;  --primary: #6C63FF;&#10;  --secondary: #FF6584;&#10;}"></textarea>
+      <button class="impb" onclick="importCSS()">Apply Pasted CSS</button>
+      <div class="imph">Paste a <code>:root { ... }</code> block or just lines like <code>--primary: #6C63FF;</code></div>
+    </div>
+  </aside>
+  <main class="cp">
+    <div class="pf">
+      <div class="notch"></div>
+      <div class="sb">
+        <span class="sbt">9:41</span>
+        <div class="sbi"><span style="width:5px;height:5px;border-radius:50%"></span><span style="width:11px"></span><span style="width:17px"></span></div>
+      </div>
+      <div class="tb">
+        <div class="tbr">
+          <div><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Good morning 👋</div><div class="at">Dashboard</div></div>
+          <div class="av">JD</div>
+        </div>
+      </div>
+      <div class="scr">
+        <div class="srchbar"><div class="si"></div><span style="font-size:13px;color:var(--text-secondary)">Search anything...</span></div>
+        <div class="hc"><div class="hl">Total Balance</div><div class="hv">$24,819</div><div class="hs">+12.4% from last month</div><div class="hb">▲ 12.4% this week</div></div>
+        <div class="slbl">Overview</div>
+        <div class="str">
+          <div class="sc"><div class="si2"><div class="sd" style="background:var(--primary)"></div></div><div class="sn">142</div><div class="snm">Active</div></div>
+          <div class="sc"><div class="si2"><div class="sd" style="background:var(--secondary)"></div></div><div class="sn">89</div><div class="snm">Pending</div></div>
+          <div class="sc"><div class="si2"><div class="sd" style="background:var(--accent)"></div></div><div class="sn">7</div><div class="snm">Done</div></div>
+        </div>
+        <div class="pw">
+          <div class="ph"><span class="pt">Progress Bars</span><span class="pp">68%</span></div>
+          <div class="ptrack"><div class="pf1"></div></div>
+          <div class="ptrack"><div class="pf1 pf2"></div></div>
+          <div class="ptrack" style="margin-bottom:0"><div class="pf1 pf3"></div></div>
+        </div>
+        <div class="br"><button class="btn btp">Primary</button><button class="btn bts">Secondary</button><button class="btn btg">Ghost</button></div>
+        <div class="mi mif"><span class="mit">Email address</span><div class="fd"></div></div>
+        <div class="mi"><span class="mit">Password</span></div>
+        <div class="slbl">Recent Items</div>
+        <div class="li"><div class="la" style="background:var(--primary)">A</div><div class="lt"><div class="ln">Analytics Report</div><div class="ls">Updated 2 hrs ago</div></div><span class="badge bp">New</span></div>
+        <div class="li"><div class="la" style="background:var(--secondary)">D</div><div class="lt"><div class="ln">Design System v2</div><div class="ls">In review</div></div><span class="badge bs">WIP</span></div>
+        <div class="li"><div class="la" style="background:var(--accent);color:#1A2E20">G</div><div class="lt"><div class="ln">Growth Campaign</div><div class="ls">Completed</div></div><span class="badge bgs">✓</span></div>
+        <div class="li"><div class="la" style="background:var(--surface2);color:var(--text-primary)">M</div><div class="lt"><div class="ln">Mobile Redesign</div><div class="ls">Scheduled</div></div><span class="badge bo">Soon</span></div>
+        <div class="slbl">Notifications</div>
+        <div class="ac as"><div class="ad dg"></div><div><div class="atl">Sync complete</div><div class="ab">All data is up to date.</div></div></div>
+        <div class="ac aw"><div class="ad dw"></div><div><div class="atl">Storage 80% full</div><div class="ab">Consider clearing old files.</div></div></div>
+        <div class="ac ae"><div class="ad de"></div><div><div class="atl">Connection failed</div><div class="ab">Could not reach server.</div></div></div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="bn">
+        <div class="ni nai"><div class="nic na"></div><span class="nl">Home</span></div>
+        <div class="ni nii"><div class="nic nin"></div><span class="nl">Explore</span></div>
+        <div class="ni nii"><div class="nic nin"></div><span class="nl">Activity</span></div>
+        <div class="ni nii"><div class="nic nin"></div><span class="nl">Profile</span></div>
+      </div>
+    </div>
+  </main>
+  <aside class="rp">
+    <div class="sec" style="margin-top:0">Live Palette</div>
+    <div class="pg" id="pg"></div>
+    <div class="sec">Contrast Check</div>
+    <div id="cc"></div>
+    <button class="eb" onclick="exportCSS()">Export CSS Variables</button>
+  </aside>
+</div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+<!--
+
+1. 
+:root {
+  --primary: #3F51B5;
+  --secondary: #00BFA6;
+  --accent: #7C4DFF;
+  --background: #F4F6FB;
+  --surface: #FFFFFF;
+  --surface2: #EEF1FA;
+  --text-primary: #1F2A44;
+  --text-secondary: #5C6A8D;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --error: #E53935;
+  --success: #00C853;
+  --warning: #FFB300;
+  --border: #D6DBF5;
+}
+
+2.
+:root {
+  --primary: #2B2D42;
+  --secondary: #4A4E69;
+  --accent: #009688;
+  --background: #F8F9FA;
+  --surface: #FFFFFF;
+  --surface2: #F1F3F5;
+  --text-primary: #1C1C1E;
+  --text-secondary: #6C757D;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --error: #D90429;
+  --success: #2DC653;
+  --warning: #F4A261;
+  --border: #DEE2E6;
+}
+
+3.
+:root {
+  --primary: #10B981;
+  --secondary: #059669;
+  --accent: #34D399;
+  --background: #F0FDF4;
+  --surface: #FFFFFF;
+  --surface2: #ECFDF5;
+  --text-primary: #064E3B;
+  --text-secondary: #065F46;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --error: #DC2626;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --border: #A7F3D0;
+}
+
+4.
+:root {
+  --primary: #2563EB;
+  --secondary: #1E40AF;
+  --accent: #06B6D4;
+  --background: #F5F9FF;
+  --surface: #FFFFFF;
+  --surface2: #E8F1FF;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --error: #DC2626;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --border: #D6E4FF;
+}
+
+5.
+:root {
+  --primary: #1F2937;
+  --secondary: #374151;
+  --accent: #3B82F6;
+  --background: #F9FAFB;
+  --surface: #FFFFFF;
+  --surface2: #F3F4F6;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: #FFFFFF;
+  --error: #DC2626;
+  --success: #16A34A;
+  --warning: #D97706;
+  --border: #E5E7EB;
+}
+
+-->
