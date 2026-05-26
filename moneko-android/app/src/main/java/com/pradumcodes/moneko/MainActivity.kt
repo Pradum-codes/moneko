@@ -23,28 +23,28 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 class MainActivity : ComponentActivity() {
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    val context = applicationContext
-    val db = DatabaseProvider.getDatabase(context)
+        val context = applicationContext
+        val db = DatabaseProvider.getDatabase(context)
 
-    // Launch a coroutine tied to the Activity lifecycle and run DB work on IO dispatcher
-    lifecycleScope.launch {
-        withContext(Dispatchers.IO) {
-            seedDefaultCategories(db.categoryDao())
+        // Launch a coroutine tied to the Activity lifecycle and run DB work on IO dispatcher
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                seedDefaultCategories(db.categoryDao())
+            }
         }
-    }
 
-    enableEdgeToEdge()
-    setContent {
-        MonekoTheme {
-            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                App(modifier = Modifier.padding(innerPadding))
+        enableEdgeToEdge()
+        setContent {
+            MonekoTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    App(modifier = Modifier.padding(innerPadding))
+                }
             }
         }
     }
-}
 }
 
 @Composable
