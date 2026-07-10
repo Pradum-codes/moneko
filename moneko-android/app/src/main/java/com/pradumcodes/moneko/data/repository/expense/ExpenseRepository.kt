@@ -32,8 +32,38 @@ class ExpenseRepository(
         expenseDao.insert(expense)
     }
 
-    suspend fun updateExpense(expenseEntity: ExpenseEntity) {
-        expenseDao.update(expenseEntity)
+    suspend fun updateExpense(
+        expenseId: String,
+        amount: Long,
+        categoryId: String,
+        note: String?
+    ) {
+        val existingExpense = expenseDao.getExpenseById(expenseId)
+            ?: throw IllegalArgumentException("Expense not found.")
+        require(amount > 0)
+
+        val cleanedCategoryId = categoryId.trim()
+
+        require(cleanedCategoryId.isNotBlank()) {
+            "Category ID cannot be blank."
+        }
+
+        val cleanedNote = note?.trim()
+
+        require((cleanedNote == null) || cleanedNote.isNotBlank()) {
+            "Note cannot be blank."
+        }
+
+        val updatedExpense = existingExpense.copy(
+            amount = amount,
+            categoryId = categoryId.trim(),
+            note = note?.trim(),
+            updatedAt = currentTime(),
+            localVersion = existingExpense.localVersion + 1,
+            syncState = SyncState.LOCAL_ONLY
+        )
+
+        expenseDao.update(updatedExpense)
     }
 
     suspend fun deleteExpense(expenseId: String) {

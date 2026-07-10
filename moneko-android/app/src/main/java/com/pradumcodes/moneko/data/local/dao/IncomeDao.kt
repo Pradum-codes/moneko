@@ -4,14 +4,27 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.pradumcodes.moneko.data.local.entity.IncomeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IncomeDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertIncome(income: IncomeEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(income: IncomeEntity)
+
+    @Update
+    suspend fun update(income: IncomeEntity)
+
+    @Query("""
+    SELECT *
+    FROM income
+    WHERE isDeleted = 0
+      AND categoryId = :categoryId
+    ORDER BY createdAt DESC
+""")
+    fun getIncomesByCategory(categoryId: String): Flow<List<IncomeEntity>>
 
     @Query("""
         SELECT *
@@ -19,15 +32,14 @@ interface IncomeDao {
         WHERE isDeleted = 0
         ORDER BY createdAt DESC
     """)
-    fun getAllIncomesFlow(): Flow<List<IncomeEntity>>
+    fun getAllIncomes(): Flow<List<IncomeEntity>>
 
     @Query("""
-        SELECT *
+        SELECT COALESCE(SUM(amount),0)
         FROM income
         WHERE isDeleted = 0
-        ORDER BY createdAt DESC
     """)
-    suspend fun getAllIncomes(): List<IncomeEntity>
+    suspend fun getTotalIncome(): Long
 
     @Query("SELECT * FROM income WHERE id = :incomeId LIMIT 1")
     suspend fun getIncomeById(incomeId: String): IncomeEntity?
