@@ -13,7 +13,8 @@ enum class CategoryType {
 @Entity(
     tableName = "category",
     indices = [
-        Index(value = ["name", "type"], unique = true)
+        Index(value = ["name", "type"], unique = true),
+        Index("type")
     ]
 )
 data class CategoryEntity(
@@ -25,5 +26,7 @@ data class CategoryEntity(
     val updatedAt: Long,
     val syncState: SyncState,
     val localVersion: Int,
-    val isDeleted: Boolean
+    val isDeleted: Boolean,
+    val icon: String? = null,
+    val color: Long? = null
 )

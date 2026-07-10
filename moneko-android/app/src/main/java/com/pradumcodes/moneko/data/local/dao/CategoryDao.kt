@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.pradumcodes.moneko.data.local.entity.CategoryEntity
 import com.pradumcodes.moneko.data.local.entity.CategoryType
 import kotlinx.coroutines.flow.Flow
@@ -11,8 +12,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoryDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertCategory(category: CategoryEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(category: CategoryEntity)
+
+    @Update
+    suspend fun update(category: CategoryEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(categories: List<CategoryEntity>)
@@ -23,15 +27,7 @@ interface CategoryDao {
         WHERE isDeleted = 0
         ORDER BY name ASC
     """)
-    fun getAllCategoriesFlow(): Flow<List<CategoryEntity>>
-
-    @Query("""
-        SELECT *
-        FROM category
-        WHERE isDeleted = 0
-        ORDER BY name ASC
-    """)
-    suspend fun getAllCategories(): List<CategoryEntity>
+    fun getAllCategories(): Flow<List<CategoryEntity>>
 
     @Query("""
         SELECT *
@@ -40,7 +36,7 @@ interface CategoryDao {
           AND type = :type
         ORDER BY name ASC
     """)
-    fun getCategoriesByTypeFlow(type: CategoryType): Flow<List<CategoryEntity>>
+    fun getCategoriesByType(type: CategoryType): Flow<List<CategoryEntity>>
 
     @Query("""
         SELECT *
