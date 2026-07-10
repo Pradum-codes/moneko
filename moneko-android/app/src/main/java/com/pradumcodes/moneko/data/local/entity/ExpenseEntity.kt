@@ -1,6 +1,7 @@
 package com.pradumcodes.moneko.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.pradumcodes.moneko.util.SyncState
@@ -11,6 +12,14 @@ import com.pradumcodes.moneko.util.SyncState
         Index("createdAt"),
         Index("categoryId"),
         Index("syncState")
+    ],
+    foreignKeys = [
+        ForeignKey(
+            entity = CategoryEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["categoryId"],
+            onDelete = ForeignKey.RESTRICT
+        )
     ]
 )
 data class ExpenseEntity(

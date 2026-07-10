@@ -4,14 +4,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.pradumcodes.moneko.data.local.entity.ExpenseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExpenseDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertExpense(expense: ExpenseEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(expense: ExpenseEntity)
+
+    @Update
+    suspend fun update(expense: ExpenseEntity)
 
     @Query("""
         SELECT *
@@ -22,14 +26,11 @@ interface ExpenseDao {
     fun getAllExpensesFlow(): Flow<List<ExpenseEntity>>
 
     @Query("""
-        SELECT *
+        SELECT * 
         FROM expense
-        WHERE isDeleted = 0
-        ORDER BY createdAt DESC
-    """)
-    suspend fun getAllExpenses(): List<ExpenseEntity>
-
-    @Query("SELECT * FROM expense WHERE id = :expenseId LIMIT 1")
+        WHERE id = :expenseId 
+        LIMIT 1
+        """)
     suspend fun getExpenseById(expenseId: String): ExpenseEntity?
 
     @Query("""
