@@ -4,14 +4,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.pradumcodes.moneko.data.local.entity.LendingEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LendingDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertLending(lending: LendingEntity)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(lending: LendingEntity)
+
+    @Update
+    suspend fun update(lending: LendingEntity)
 
     // Counts
     @Query("SELECT COUNT(*) FROM lending WHERE isDeleted = 0")
@@ -55,6 +59,24 @@ interface LendingDao {
         ORDER BY createdAt DESC
     """)
     suspend fun getAllLendings(): List<LendingEntity>
+
+    @Query("""
+        SELECT *
+        FROM lending
+        WHERE isDeleted = 0
+          AND type = 'LENT'
+        ORDER BY createdAt DESC
+    """)
+    fun getAllLentFlow(): Flow<List<LendingEntity>>
+
+    @Query("""
+        SELECT *
+        FROM lending
+        WHERE isDeleted = 0
+          AND type = 'BORROWED'
+        ORDER BY createdAt DESC
+    """)
+    fun getAllBorrowedFlow(): Flow<List<LendingEntity>>
 
     @Query("""
         SELECT *

@@ -13,17 +13,19 @@ class ExpenseRepository(
         require(amount > 0) {
             "Amount should be greater than zero."
         }
-        require(categoryId.isNotEmpty()) {
+        val cleanedCategoryId = categoryId.trim()
+        require(cleanedCategoryId.isNotBlank()){
             "Category ID cannot be blank."
         }
 
+        val now = currentTime()
         val expense = ExpenseEntity(
             id = newId(),
             amount = amount,
             categoryId = categoryId,
             note = note,
-            createdAt = currentTime(),
-            updatedAt = currentTime(),
+            createdAt = now,
+            updatedAt = now,
             syncState = SyncState.LOCAL_ONLY,
             localVersion = 1,
             isDeleted = false
