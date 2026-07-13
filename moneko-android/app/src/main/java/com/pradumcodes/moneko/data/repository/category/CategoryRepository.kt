@@ -6,6 +6,7 @@ import com.pradumcodes.moneko.data.local.entity.CategoryType
 import com.pradumcodes.moneko.util.SyncState
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
+import javax.inject.Inject
 
 private data class DefaultCategory(
     val name: String,
@@ -29,7 +30,7 @@ private val DEFAULT_INCOME_CATEGORIES = listOf(
     DefaultCategory("Interest", "cat_interest")
 )
 
-class CategoryRepository(
+class CategoryRepository @Inject constructor(
     private val categoryDao: CategoryDao
 ) {
 

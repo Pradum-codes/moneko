@@ -4,27 +4,25 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.lifecycleScope
-import com.pradumcodes.moneko.data.local.db.DatabaseProvider
 import com.pradumcodes.moneko.data.repository.category.CategoryRepository
-import com.pradumcodes.moneko.ui.theme.MonekoTheme
+import com.pradumcodes.moneko.screens.home.HomeScreen
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var categoryRepository: CategoryRepository
+
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val context = applicationContext
-        val db = DatabaseProvider.getDatabase(context)
-        val categoryRepository = CategoryRepository(db.categoryDao())
 
         // Launch a coroutine tied to the Activity lifecycle and run DB work on IO dispatcher
         lifecycleScope.launch {
@@ -35,16 +33,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            MonekoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    App(modifier = Modifier.padding(innerPadding))
-                }
-            }
+            HomeScreen()
         }
     }
-}
-
-@Composable
-fun App(modifier: Modifier) {
-    Text(text = "Hello, Moneko!")
 }

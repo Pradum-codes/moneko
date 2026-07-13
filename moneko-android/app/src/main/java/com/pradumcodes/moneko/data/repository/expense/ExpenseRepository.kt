@@ -5,8 +5,9 @@ import com.pradumcodes.moneko.data.local.entity.ExpenseEntity
 import com.pradumcodes.moneko.util.SyncState
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
+import javax.inject.Inject
 
-class ExpenseRepository(
+class ExpenseRepository @Inject constructor (
     private val expenseDao: ExpenseDao
 ) {
     suspend fun createExpense(amount: Long, categoryId: String, note: String?) {

@@ -5,8 +5,9 @@ import com.pradumcodes.moneko.data.local.entity.IncomeEntity
 import com.pradumcodes.moneko.util.SyncState
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
+import javax.inject.Inject
 
-class IncomeRepository(
+class IncomeRepository @Inject constructor (
     private val incomeDao: IncomeDao
 ) {
 
