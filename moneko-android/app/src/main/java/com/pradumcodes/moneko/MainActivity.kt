@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.lifecycleScope
 import com.pradumcodes.moneko.data.repository.category.CategoryRepository
 import com.pradumcodes.moneko.ui.app.AppScaffold
+import com.pradumcodes.moneko.ui.theme.MonekoTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,7 +34,9 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            AppScaffold()
+            MonekoTheme {
+                AppScaffold()
+            }
         }
     }
 }

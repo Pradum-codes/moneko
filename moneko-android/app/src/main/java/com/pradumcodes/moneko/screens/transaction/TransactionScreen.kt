@@ -3,6 +3,7 @@ package com.pradumcodes.moneko.screens.transaction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,12 +20,12 @@ fun TransactionScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Transactions")
+        Text(text = "Transactions", style = MaterialTheme.typography.titleLarge)
         Text(text = "Test Object for navigation")
         Button(
             onClick = { count++ }
         ) {
-            Text("$count")
+            Text("$count", style = MaterialTheme.typography.titleLarge)
         }
     }
 }
