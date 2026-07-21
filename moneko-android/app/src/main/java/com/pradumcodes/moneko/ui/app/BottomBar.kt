@@ -27,6 +27,7 @@ fun BottomBar(
                 Transaction -> currentDestination?.hasRoute<Transaction>() == true
                 Loan -> currentDestination?.hasRoute<Loan>() == true
                 Report -> currentDestination?.hasRoute<Report>() == true
+                else -> { false }
             }
 
 

@@ -15,3 +15,6 @@ data object Loan : Destination
 
 @Serializable
 data object Report : Destination
+
+@Serializable
+data object AddTransaction : Destination
